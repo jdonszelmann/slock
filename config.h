@@ -1,6 +1,6 @@
 /* user and group to drop privileges to */
-static const char *user  = "nobody";
-static const char *group = "nogroup";
+static const char *user  = "jonathan";
+static const char *group = "jonathan";
 
 static const char *colorname[NUMCOLS] = {
 	[INIT] =   "#32a852",     /* after initialization */
