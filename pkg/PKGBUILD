@@ -1,4 +1,4 @@
-pkgname=jonathan-slock
+pkgname=jonathan-slock-git
 pkgver=1.4
 pkgrel=3
 pkgdesc="A simple screen locker for X"
@@ -6,22 +6,23 @@ arch=('x86_64')
 url="https://tools.suckless.org/slock"
 license=('MIT')
 depends=('libxext' 'libxrandr')
-source=("https://github.com/jonay2000/slock")
+source=("${pkgname}::git://github.com/jonay2000/slock.git")
+makedepends=('git')
 md5sums=('SKIP')
 
 prepare() {
-  cd "$srcdir/slock-$pkgver"
+  cd "$srcdir/$pkgname"
   sed -i 's|static const char \*group = "nogroup";|static const char *group = "nobody";|' config.def.h
   sed -ri 's/((CPP|C|LD)FLAGS) =/\1 +=/g' config.mk
 }
 
 build() {
-  cd "$srcdir/slock-$pkgver"
+  cd "$srcdir/$pkgname"
   make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
 package() {
-  cd "$srcdir/slock-$pkgver"
+  cd "$srcdir/$pkgname"
   make PREFIX=/usr DESTDIR="$pkgdir" install
   install -m644 -D LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
